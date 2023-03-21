@@ -30,18 +30,18 @@ public interface yuliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGlobal(yuliParser.GlobalContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link yuliParser#funcbody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncbody(yuliParser.FuncbodyContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code setvariable}
 	 * labeled alternative in {@link yuliParser#setargs}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSetvariable(yuliParser.SetvariableContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link yuliParser#argumentsinit}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArgumentsinit(yuliParser.ArgumentsinitContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ifgroup}
 	 * labeled alternative in {@link yuliParser#operation}.

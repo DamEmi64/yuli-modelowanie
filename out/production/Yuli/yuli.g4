@@ -35,21 +35,21 @@ grammar yuli;
 file_ : functions*;
 
 functions
-    : 'func ' VARIABLE LPAREN* arguments = atom* RPAREN* STARTBLOCK inside=operation* ENDBLOCK next = functions* #funinit
+    : 'func ' VARIABLE LPAREN* arguments = atom* RPAREN* STARTBLOCK inside=funcbody? ENDBLOCK #funinit
     |inside=operation #global
     ;
+funcbody
+    : operation*
+    ;
+
 
 setargs
     : <asoc=right> left=variable SETVAR right=operation #setvariable
     ;
 
-argumentsinit
-    : setargs*
-    ;
-
 operation
     :  ifstatements #ifgroup
-    | name = variable LPAREN args = argumentsinit? RPAREN #callfun
+    | name = variable LPAREN args =  setargs* RPAREN #callfun
     | loopstatements #loopgroup
     | setargs #setargument
     | specialfun #specialfunc

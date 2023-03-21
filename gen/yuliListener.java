@@ -41,6 +41,16 @@ public interface yuliListener extends ParseTreeListener {
 	 */
 	void exitGlobal(yuliParser.GlobalContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link yuliParser#funcbody}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncbody(yuliParser.FuncbodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link yuliParser#funcbody}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncbody(yuliParser.FuncbodyContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code setvariable}
 	 * labeled alternative in {@link yuliParser#setargs}.
 	 * @param ctx the parse tree
@@ -52,16 +62,6 @@ public interface yuliListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSetvariable(yuliParser.SetvariableContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link yuliParser#argumentsinit}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgumentsinit(yuliParser.ArgumentsinitContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link yuliParser#argumentsinit}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgumentsinit(yuliParser.ArgumentsinitContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ifgroup}
 	 * labeled alternative in {@link yuliParser#operation}.

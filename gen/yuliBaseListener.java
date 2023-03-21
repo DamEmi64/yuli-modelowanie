@@ -52,6 +52,18 @@ public class yuliBaseListener implements yuliListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFuncbody(yuliParser.FuncbodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncbody(yuliParser.FuncbodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSetvariable(yuliParser.SetvariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -59,18 +71,6 @@ public class yuliBaseListener implements yuliListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSetvariable(yuliParser.SetvariableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArgumentsinit(yuliParser.ArgumentsinitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArgumentsinit(yuliParser.ArgumentsinitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

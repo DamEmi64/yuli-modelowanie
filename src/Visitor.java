@@ -2,19 +2,18 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Visitor extends yuliBaseVisitor<Double>{
 
-    public static List<HashMap<String,Double>> variables = new LinkedList<HashMap<String,Double>>();
+    public  List<HashMap<String,Double>> variables = new LinkedList<HashMap<String,Double>>();
 
-    public static HashMap<String, ParseTree> functions = new HashMap<>();
+    public  HashMap<String, ParseTree> functions = new HashMap<>();
 
-    public static HashMap<String, List<ParseTree>> funcargs = new HashMap<>();
+    public HashMap<String, List<String>> funcargs = new HashMap<String, List<String>>();
 
-    public static Boolean isLocal = false;
+    public String buf;
 
     public CharStream input;
 
@@ -88,7 +87,7 @@ public class Visitor extends yuliBaseVisitor<Double>{
 
     @Override public Double visitPrintfun(yuliParser.PrintfunContext ctx) {
         System.out.println( visit(ctx.inside));
-        return  visitChildren(ctx);
+        return  Double.valueOf(0);
     }
 
     @Override public Double visitCompare(yuliParser.CompareContext ctx) {
@@ -170,8 +169,8 @@ public class Visitor extends yuliBaseVisitor<Double>{
         var end = visit(ctx.endwhile);
         while ( Math.round(begin) != Math.round(end) )
         {
-          a = visit(ctx.inside);
-          begin = visit(ctx.condition);
+            a = visit(ctx.inside);
+            begin = visit(ctx.condition);
         }
 
         return a;
@@ -214,7 +213,7 @@ public class Visitor extends yuliBaseVisitor<Double>{
             a = visit(ctx.inside);
             if (begin < end)
             {
-                 variables.get(variables.size()-1).put(ctx.startwhile.getText(), Double.valueOf(begin));
+                variables.get(variables.size()-1).put(ctx.startwhile.getText(), Double.valueOf(begin));
                 begin++;
 
             }
@@ -234,20 +233,23 @@ public class Visitor extends yuliBaseVisitor<Double>{
      */
     @Override public Double visitCallfun(yuliParser.CallfunContext ctx) {
         var hashmap = new HashMap<String,Double>();
+        for (int i =0; i < funcargs.get(ctx.name.getText()).size(); i++) {
+            hashmap.put(funcargs.get(ctx.name.getText()).get(i),Double.valueOf(0));
+        }
         variables.add(hashmap);
-       var func = functions.get(ctx.name.getText());
-       if (ctx.args != null)
-       {
-            visitChildren(ctx.args);
-       }
+        var func = functions.get(ctx.name.getText());
+        if (ctx.args!= null)
+        {
+            visit(ctx.args);
+        }
 
-       if (func != null)
-       {
-           var a =  visit(func);
-           variables.remove(hashmap);
-           return  a;
-       }
-       return Double.valueOf(0);
+        if (func != null)
+        {
+            var a =  visit(func);
+            variables.remove(hashmap);
+            return  a;
+        }
+        return Double.valueOf(0);
     }
 
     /**
@@ -260,9 +262,16 @@ public class Visitor extends yuliBaseVisitor<Double>{
 
         if (ctx.inside != null)
         {
-            functions.put(ctx.VARIABLE().getText(),ctx.inside);
+            buf = ctx.VARIABLE().getText();
+            functions.put(buf,ctx.funcbody());
+            var list =  new LinkedList<String>();
+            for (int i =0; i < ctx.atom().size();i++)
+            {
+                list.add(ctx.atom(i).getText());
+            }
+            funcargs.put(ctx.VARIABLE().getText(),list);
         }
-       return  visit(ctx.next);
+        return  Double.valueOf(0);
     }
 /*    private String GetText(ParserRuleContext ctx)
     {

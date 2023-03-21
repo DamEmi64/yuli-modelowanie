@@ -38,14 +38,14 @@ public class yuliBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements y
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSetvariable(yuliParser.SetvariableContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFuncbody(yuliParser.FuncbodyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArgumentsinit(yuliParser.ArgumentsinitContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSetvariable(yuliParser.SetvariableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
