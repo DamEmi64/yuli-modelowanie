@@ -28,13 +28,13 @@ public class yuliBaseListener implements yuliListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFun(yuliParser.FunContext ctx) { }
+	@Override public void enterFuninit(yuliParser.FuninitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFun(yuliParser.FunContext ctx) { }
+	@Override public void exitFuninit(yuliParser.FuninitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -52,6 +52,30 @@ public class yuliBaseListener implements yuliListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSetvariable(yuliParser.SetvariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetvariable(yuliParser.SetvariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgumentsinit(yuliParser.ArgumentsinitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgumentsinit(yuliParser.ArgumentsinitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIfgroup(yuliParser.IfgroupContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -59,6 +83,18 @@ public class yuliBaseListener implements yuliListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIfgroup(yuliParser.IfgroupContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCallfun(yuliParser.CallfunContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCallfun(yuliParser.CallfunContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -76,25 +112,25 @@ public class yuliBaseListener implements yuliListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSetvariable(yuliParser.SetvariableContext ctx) { }
+	@Override public void enterSetargument(yuliParser.SetargumentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSetvariable(yuliParser.SetvariableContext ctx) { }
+	@Override public void exitSetargument(yuliParser.SetargumentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrintfun(yuliParser.PrintfunContext ctx) { }
+	@Override public void enterSpecialfunc(yuliParser.SpecialfuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrintfun(yuliParser.PrintfunContext ctx) { }
+	@Override public void exitSpecialfunc(yuliParser.SpecialfuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -107,6 +143,18 @@ public class yuliBaseListener implements yuliListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEqu(yuliParser.EquContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrintfun(yuliParser.PrintfunContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrintfun(yuliParser.PrintfunContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -143,6 +191,42 @@ public class yuliBaseListener implements yuliListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWhilestatement(yuliParser.WhilestatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForstatementwithcondition(yuliParser.ForstatementwithconditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForstatementwithcondition(yuliParser.ForstatementwithconditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhilestatementwithoutcondition(yuliParser.WhilestatementwithoutconditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhilestatementwithoutcondition(yuliParser.WhilestatementwithoutconditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhilestatementwithoutconditionindex(yuliParser.WhilestatementwithoutconditionindexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhilestatementwithoutconditionindex(yuliParser.WhilestatementwithoutconditionindexContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

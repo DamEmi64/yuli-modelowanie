@@ -16,12 +16,12 @@ public interface yuliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFile_(yuliParser.File_Context ctx);
 	/**
-	 * Visit a parse tree produced by the {@code fun}
+	 * Visit a parse tree produced by the {@code funinit}
 	 * labeled alternative in {@link yuliParser#functions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFun(yuliParser.FunContext ctx);
+	T visitFuninit(yuliParser.FuninitContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code global}
 	 * labeled alternative in {@link yuliParser#functions}.
@@ -30,12 +30,32 @@ public interface yuliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGlobal(yuliParser.GlobalContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code setvariable}
+	 * labeled alternative in {@link yuliParser#setargs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetvariable(yuliParser.SetvariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link yuliParser#argumentsinit}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentsinit(yuliParser.ArgumentsinitContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ifgroup}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIfgroup(yuliParser.IfgroupContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code callfun}
+	 * labeled alternative in {@link yuliParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallfun(yuliParser.CallfunContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code loopgroup}
 	 * labeled alternative in {@link yuliParser#operation}.
@@ -44,19 +64,19 @@ public interface yuliVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoopgroup(yuliParser.LoopgroupContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code setvariable}
+	 * Visit a parse tree produced by the {@code setargument}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSetvariable(yuliParser.SetvariableContext ctx);
+	T visitSetargument(yuliParser.SetargumentContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code printfun}
+	 * Visit a parse tree produced by the {@code specialfunc}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrintfun(yuliParser.PrintfunContext ctx);
+	T visitSpecialfunc(yuliParser.SpecialfuncContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code equ}
 	 * labeled alternative in {@link yuliParser#operation}.
@@ -64,6 +84,13 @@ public interface yuliVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitEqu(yuliParser.EquContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code printfun}
+	 * labeled alternative in {@link yuliParser#specialfun}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintfun(yuliParser.PrintfunContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ifelsestatement}
 	 * labeled alternative in {@link yuliParser#ifstatements}.
@@ -85,6 +112,27 @@ public interface yuliVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitWhilestatement(yuliParser.WhilestatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code forstatementwithcondition}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForstatementwithcondition(yuliParser.ForstatementwithconditionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code whilestatementwithoutcondition}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhilestatementwithoutcondition(yuliParser.WhilestatementwithoutconditionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code whilestatementwithoutconditionindex}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhilestatementwithoutconditionindex(yuliParser.WhilestatementwithoutconditionindexContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code cal}
 	 * labeled alternative in {@link yuliParser#equation}.

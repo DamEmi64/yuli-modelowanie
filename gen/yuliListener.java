@@ -17,17 +17,17 @@ public interface yuliListener extends ParseTreeListener {
 	 */
 	void exitFile_(yuliParser.File_Context ctx);
 	/**
-	 * Enter a parse tree produced by the {@code fun}
+	 * Enter a parse tree produced by the {@code funinit}
 	 * labeled alternative in {@link yuliParser#functions}.
 	 * @param ctx the parse tree
 	 */
-	void enterFun(yuliParser.FunContext ctx);
+	void enterFuninit(yuliParser.FuninitContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code fun}
+	 * Exit a parse tree produced by the {@code funinit}
 	 * labeled alternative in {@link yuliParser#functions}.
 	 * @param ctx the parse tree
 	 */
-	void exitFun(yuliParser.FunContext ctx);
+	void exitFuninit(yuliParser.FuninitContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code global}
 	 * labeled alternative in {@link yuliParser#functions}.
@@ -41,6 +41,28 @@ public interface yuliListener extends ParseTreeListener {
 	 */
 	void exitGlobal(yuliParser.GlobalContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code setvariable}
+	 * labeled alternative in {@link yuliParser#setargs}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetvariable(yuliParser.SetvariableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code setvariable}
+	 * labeled alternative in {@link yuliParser#setargs}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetvariable(yuliParser.SetvariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link yuliParser#argumentsinit}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentsinit(yuliParser.ArgumentsinitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link yuliParser#argumentsinit}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentsinit(yuliParser.ArgumentsinitContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ifgroup}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
@@ -52,6 +74,18 @@ public interface yuliListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfgroup(yuliParser.IfgroupContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code callfun}
+	 * labeled alternative in {@link yuliParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallfun(yuliParser.CallfunContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code callfun}
+	 * labeled alternative in {@link yuliParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallfun(yuliParser.CallfunContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code loopgroup}
 	 * labeled alternative in {@link yuliParser#operation}.
@@ -65,29 +99,29 @@ public interface yuliListener extends ParseTreeListener {
 	 */
 	void exitLoopgroup(yuliParser.LoopgroupContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code setvariable}
+	 * Enter a parse tree produced by the {@code setargument}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
 	 */
-	void enterSetvariable(yuliParser.SetvariableContext ctx);
+	void enterSetargument(yuliParser.SetargumentContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code setvariable}
+	 * Exit a parse tree produced by the {@code setargument}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
 	 */
-	void exitSetvariable(yuliParser.SetvariableContext ctx);
+	void exitSetargument(yuliParser.SetargumentContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code printfun}
+	 * Enter a parse tree produced by the {@code specialfunc}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrintfun(yuliParser.PrintfunContext ctx);
+	void enterSpecialfunc(yuliParser.SpecialfuncContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code printfun}
+	 * Exit a parse tree produced by the {@code specialfunc}
 	 * labeled alternative in {@link yuliParser#operation}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrintfun(yuliParser.PrintfunContext ctx);
+	void exitSpecialfunc(yuliParser.SpecialfuncContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code equ}
 	 * labeled alternative in {@link yuliParser#operation}.
@@ -100,6 +134,18 @@ public interface yuliListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEqu(yuliParser.EquContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code printfun}
+	 * labeled alternative in {@link yuliParser#specialfun}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintfun(yuliParser.PrintfunContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code printfun}
+	 * labeled alternative in {@link yuliParser#specialfun}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintfun(yuliParser.PrintfunContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ifelsestatement}
 	 * labeled alternative in {@link yuliParser#ifstatements}.
@@ -136,6 +182,42 @@ public interface yuliListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhilestatement(yuliParser.WhilestatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code forstatementwithcondition}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 */
+	void enterForstatementwithcondition(yuliParser.ForstatementwithconditionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code forstatementwithcondition}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 */
+	void exitForstatementwithcondition(yuliParser.ForstatementwithconditionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code whilestatementwithoutcondition}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhilestatementwithoutcondition(yuliParser.WhilestatementwithoutconditionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code whilestatementwithoutcondition}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhilestatementwithoutcondition(yuliParser.WhilestatementwithoutconditionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code whilestatementwithoutconditionindex}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhilestatementwithoutconditionindex(yuliParser.WhilestatementwithoutconditionindexContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code whilestatementwithoutconditionindex}
+	 * labeled alternative in {@link yuliParser#loopstatements}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhilestatementwithoutconditionindex(yuliParser.WhilestatementwithoutconditionindexContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code cal}
 	 * labeled alternative in {@link yuliParser#equation}.

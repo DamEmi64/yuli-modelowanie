@@ -27,8 +27,12 @@ public class Main {
 
             // create a visitor to traverse the parse tree
             Visitor visitor = new Visitor();
+
             Double result = visitor.visit(tree);
-            System.out.println(result.toString());
+            if (result != null)
+            {
+                System.out.println(result.toString());
+            }
         }catch (Exception e)
         {
             System.out.println(e.getMessage());

@@ -35,24 +35,41 @@ grammar yuli;
 file_ : functions*;
 
 functions
-    : 'func ' VARIABLE STARTBLOCK inside=operation* ENDBLOCK #fun
+    : 'func ' VARIABLE LPAREN* arguments = atom* RPAREN* STARTBLOCK inside=operation* ENDBLOCK next = functions* #funinit
     |inside=operation #global
+    ;
+
+setargs
+    : <asoc=right> left=variable SETVAR right=operation #setvariable
+    ;
+
+argumentsinit
+    : setargs*
     ;
 
 operation
     :  ifstatements #ifgroup
+    | name = variable LPAREN args = argumentsinit? RPAREN #callfun
     | loopstatements #loopgroup
-    | <asoc=right> left=variable EQ right=expression #setvariable
-    | <asoc=right> 'print ' inside=variable #printfun
+    | setargs #setargument
+    | specialfun #specialfunc
     | equation #equ
+
+    ;
+
+specialfun
+    : <asoc=right> 'print ' inside=operation #printfun
     ;
 
 ifstatements
-    : IFKW '('condition=expression')' '[' inside=operation*']' ELSEKW '[' elseinside=expression']' #ifelsestatement
+    : IFKW '('condition=expression')' STARTBLOCK inside=operation* ENDBLOCK ELSEKW* STARTBLOCK* elseinside=expression* ENDBLOCK* #ifelsestatement
     | IFKW '('condition=expression')' '[' inside=operation* ']' #ifstatement
     ;
 loopstatements
-    : 'while' condition=equation '[' inside=operation* ']' #whilestatement
+    : 'while ' condition=equation '[' inside=operation* ']' #whilestatement
+    | 'for ' LPAREN startwhile = atom ':' endwhile = atom ':' condition=operation* RPAREN STARTBLOCK inside=operation* ENDBLOCK #forstatementwithcondition
+    | 'while ' LPAREN startwhile = scientific ':' endwhile = atom  RPAREN STARTBLOCK inside=operation* ENDBLOCK #whilestatementwithoutcondition
+    | 'while ' LPAREN startwhile = variable ':' endwhile = atom  RPAREN STARTBLOCK inside=operation* ENDBLOCK #whilestatementwithoutconditionindex
     ;
 
 equation
@@ -179,6 +196,10 @@ LT
    : '<'
    ;
 
+
+SETVAR
+    : ':'
+    ;
 
 EQ
    : '='

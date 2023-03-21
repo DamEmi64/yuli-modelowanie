@@ -1,33 +1,33 @@
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Visitor extends yuliBaseVisitor<Double>{
 
-    public static HashMap<String,Double> globalVariable = new HashMap<String,Double>();
+    public static List<HashMap<String,Double>> variables = new LinkedList<HashMap<String,Double>>();
 
-    public static List<HashMap<String,Double>> localVariable = new LinkedList<HashMap<String,Double>>();
+    public static HashMap<String, ParseTree> functions = new HashMap<>();
+
+    public static HashMap<String, List<ParseTree>> funcargs = new HashMap<>();
 
     public static Boolean isLocal = false;
 
     public CharStream input;
 
+    public Visitor()
+    {
+        variables.add(new HashMap<String,Double>());
+    }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation returns the result of calling
      * {@link #visitChildren} on {@code ctx}.</p>
      */
-    @Override public Double visitFun(yuliParser.FunContext ctx) {
-
-        localVariable.add(new HashMap<>());
-        var a = visit(ctx.inside);
-     //   localVariable.get(localVariable.size()-1);
-        localVariable.remove(localVariable.get(localVariable.size()-1));
-        return  a;
-    }
     @Override public Double visitGlobal(yuliParser.GlobalContext ctx) {
         return  visit(ctx.inside);
     }
@@ -61,38 +61,34 @@ public class Visitor extends yuliBaseVisitor<Double>{
     }
 
     @Override public Double visitVariable(yuliParser.VariableContext ctx) {
-        var variable  = ctx.VARIABLE().getText();
-        var locals = localVariable.get(localVariable.size()-1);
-        if (locals.containsKey(variable))
+
+        for ( int i = variables.size() - 1 ; i >= 0; i--)
         {
-            return locals.get(variable);
-        }
-        if (globalVariable.containsKey(variable))
-        {
-            return  globalVariable.get(variable);
+            if (variables.get(i).containsKey(ctx.VARIABLE().getText()))
+            {
+                return variables.get(i).get(ctx.VARIABLE().getText());
+            }
         }
 
         return Double.valueOf(0);
     }
     @Override public Double visitSetvariable(yuliParser.SetvariableContext ctx) {
 
-        var variable  = ctx.left.getText();
-        if (isLocal)
+        for ( int i = variables.size() - 1 ; i >= 0; i--)
         {
-            var locals = localVariable.get(localVariable.size()-1);
-            locals.put(variable,visit(ctx.right));
+            if (variables.get(i).containsKey(ctx.left.getText()))
+            {
+                return variables.get(i).put(ctx.left.getText(), Double.valueOf(visit(ctx.right)));
+            }
         }
-        else
-        {
-            globalVariable.put(variable,visit(ctx.right));
-        }
-        return Double.parseDouble(variable);
+
+        return variables.get(variables.size()-1).put(ctx.left.getText(), Double.valueOf(visit(ctx.right)));
     }
     @Override public Double visitCal(yuliParser.CalContext ctx) { return visit(ctx.result); }
 
     @Override public Double visitPrintfun(yuliParser.PrintfunContext ctx) {
-        System.out.println(ctx.inside.getText());
-        return visitChildren(ctx);
+        System.out.println( visit(ctx.inside));
+        return  visitChildren(ctx);
     }
 
     @Override public Double visitCompare(yuliParser.CompareContext ctx) {
@@ -161,7 +157,113 @@ public class Visitor extends yuliBaseVisitor<Double>{
 
         return a;
     }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override public Double visitForstatementwithcondition(yuliParser.ForstatementwithconditionContext ctx)
+    {
+        Double a = Double.valueOf(0);
+        var begin = visit(ctx.startwhile);
+        var end = visit(ctx.endwhile);
+        while ( Math.round(begin) != Math.round(end) )
+        {
+          a = visit(ctx.inside);
+          begin = visit(ctx.condition);
+        }
 
+        return a;
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override public Double visitWhilestatementwithoutcondition(yuliParser.WhilestatementwithoutconditionContext ctx) {
+
+        Double a = Double.valueOf(0);
+        var begin = visit(ctx.startwhile);
+        var end = visit(ctx.endwhile);
+        while ( Math.round(begin) != Math.round(end) )
+        {
+            a = visit(ctx.inside);
+            if (begin < end)
+            {
+                begin++;
+
+            }
+            else
+            {
+                begin--;
+            }
+        }
+
+        return a;
+    }
+
+
+    @Override public Double visitWhilestatementwithoutconditionindex(yuliParser.WhilestatementwithoutconditionindexContext ctx) {
+        Double a = Double.valueOf(0);
+        var begin = visit(ctx.startwhile);
+        var end = visit(ctx.endwhile);
+        while ( Math.round(begin) != Math.round(end) )
+        {
+            a = visit(ctx.inside);
+            if (begin < end)
+            {
+                 variables.get(variables.size()-1).put(ctx.startwhile.getText(), Double.valueOf(begin));
+                begin++;
+
+            }
+            else
+            {
+                variables.get(variables.size()-1).put(ctx.startwhile.getText(), Double.valueOf(begin));
+                begin--;
+            }
+        }
+
+        return a;
+    }
+    /**
+     *
+     * @param ctx
+     * @return
+     */
+    @Override public Double visitCallfun(yuliParser.CallfunContext ctx) {
+        var hashmap = new HashMap<String,Double>();
+        variables.add(hashmap);
+       var func = functions.get(ctx.name.getText());
+       if (ctx.args != null)
+       {
+            visitChildren(ctx.args);
+       }
+
+       if (func != null)
+       {
+           var a =  visit(func);
+           variables.remove(hashmap);
+           return  a;
+       }
+       return Double.valueOf(0);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override public Double visitFuninit(yuliParser.FuninitContext ctx) {
+
+        if (ctx.inside != null)
+        {
+            functions.put(ctx.VARIABLE().getText(),ctx.inside);
+        }
+       return  visit(ctx.next);
+    }
 /*    private String GetText(ParserRuleContext ctx)
     {
         int a = ctx.start.getStartIndex();
